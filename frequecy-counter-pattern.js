@@ -13,9 +13,9 @@ This pattern also useful for compare multiply peaces of data (for example anagra
  */
 
 const getExecTime = (func = () => {
-}, {arr1, arr2}) => {
+}, arg) => {
 	const start = new Date().getTime();
-	func.call(null, arr1, arr2);
+	func.call(null,arg);
 	const end = new Date().getTime();
 	return `Execution ${func.name}: ${end - start}ms `;
 };
@@ -35,14 +35,14 @@ const plusOneArguments = (arr1 = []) => (
 
 
 // not the best solution
-const isSame = (arr1 = [], arr2 = []) => {
+const isSame = ({arr1,arr2}) => {
 	if (arr1.length !== arr2.length) return false;
 	for (let i = 0; i < arr1.length; i++) {
 		let correctIndex = arr2.indexOf(arr1[i] ** 2);
 		if (correctIndex === -1) {
 			return false;
 		}
-		console.log(arr2);
+
 		arr2.splice(correctIndex, 1);
 	}
 	return true;
@@ -51,8 +51,8 @@ const isSame = (arr1 = [], arr2 = []) => {
 //
 
 
-function myIsSame(arr1, arr2) {
-
+function myIsSame({arr1, arr2}) {
+// .reduce, O(n)
 	const createObject = (arg = []) => (arg.reduce((obj, currEl) => {
 			obj[currEl] = (obj[currEl] || 0) + 1;
 			return obj;
@@ -80,7 +80,8 @@ const trulyArguments = sqArguments([1, 12, 123, 23, 34, 545, 1, 1, 2, 2, 3]);
 
 const falselyArguments = plusOneArguments([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-
+console.log(myIsSame(trulyArguments));
+console.log(myIsSame(falselyArguments))
 
 console.log(getExecTime(myIsSame,  trulyArguments));
-console.log(getExecTime(isSame, falselyArguments));
+console.log(getExecTime(isSame, trulyArguments));
