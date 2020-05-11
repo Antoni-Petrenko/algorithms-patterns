@@ -9,10 +9,10 @@ const isValidAnagram = (firstW, secW) => {
 	const secWObbj=convertToObject(secW);
 
 	for(const key in firstWObj){
-		debugger
+
 		if(!(key in secWObbj)) return false;
 		if(firstWObj[key] !== secWObbj[key]) return false;
-		debugger
+
 	}
 
 	return true
